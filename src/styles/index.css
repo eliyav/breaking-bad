@@ -1,0 +1,92 @@
+html {
+  background-color: grey;
+}
+
+.app {
+  height: 100%;
+}
+
+.filter-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  position: absolute;
+  flex-flow: column nowrap;
+  overflow-y: scroll;
+  align-items: center;
+  z-index: 3;
+  max-width: 30ch;
+  max-height: 50ch;
+  margin-left: 1em;
+}
+
+.hide {
+  display: none;
+}
+
+.filter {
+  color: white;
+  z-index: 3;
+  padding: 1em;
+  width: 100%;
+  text-align: center;
+}
+
+.filter-label {
+  z-index: 3;
+  display: inline-block;
+  position: relative;
+  margin: 2em;
+  padding: 1em;
+  color: white;
+  background-color: black;
+}
+
+.filter-label:hover {
+  background-color: rgba(255, 255, 0, 0.5);
+}
+
+.selected {
+  background-color: rgba(255, 255, 0, 0.5);
+  color: black;
+}
+
+.character-display {
+  width: 100%;
+  max-width: 100ch;
+  margin: 1em auto;
+  color: white;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.character-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+}
+
+.item {
+  padding: 1em;
+  font-size: 1.15em;
+}
+
+.item > label {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.title {
+  font-size: 2em;
+}
+
+.close-character {
+  display: inline-block;
+  position: relative;
+  padding: 1em;
+  font-size: 1.5em;
+}
+
+.close-character:hover {
+  color: gray;
+}
