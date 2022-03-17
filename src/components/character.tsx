@@ -14,12 +14,7 @@ export const Character: React.VFC<{ data: Character; close: () => void }> = ({
         <div className="title">Character Info</div>
         <CharacterItem label="Name: " text={data.name} />
         <CharacterItem label="Nickname: " text={data.nickname} />
-        <div className="item">
-          <label>Occupation: </label>
-          {data.occupation.map((o, idx) => (
-            <span key={idx}>{o} </span>
-          ))}
-        </div>
+        <CharacterItem label="Occupation: " text={data.occupation} />
         <CharacterItem label="Birthday: " text={data.birthday} />
         <CharacterItem label="Status: " text={data.status} />
       </div>

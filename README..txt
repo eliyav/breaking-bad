@@ -1,1 +1,0 @@
-npm start to serve on localhost 3000
