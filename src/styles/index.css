@@ -6,7 +6,7 @@ html {
   height: 100%;
 }
 
-.filter-container {
+.filter-menu {
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   position: absolute;
@@ -23,7 +23,7 @@ html {
   display: none;
 }
 
-.filter {
+.filter-item {
   color: white;
   z-index: 3;
   padding: 1em;
@@ -31,7 +31,7 @@ html {
   text-align: center;
 }
 
-.filter-label {
+.filter-menu-button {
   z-index: 3;
   display: inline-block;
   position: relative;
@@ -41,7 +41,7 @@ html {
   background-color: black;
 }
 
-.filter-label:hover {
+.filter-menu-button:hover {
   background-color: rgba(255, 255, 0, 0.5);
 }
 

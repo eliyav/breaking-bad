@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import AFRAME = require("aframe");
 import { Character } from "./components/character";
 import desert from "../assets/desert.jpg";
@@ -21,6 +27,14 @@ export const App: React.VFC = () => {
     );
   }, [filteredCharacters, characterData]);
 
+  const toggleClass = useCallback((ele: HTMLElement, styleClass: string) => {
+    if (ele.classList.contains(styleClass)) {
+      ele.classList.remove(styleClass);
+    } else {
+      ele.classList.add(styleClass);
+    }
+  }, []);
+
   useEffect(() => {
     (async function fetchBreakingBad() {
       const data = await fetch(
@@ -28,39 +42,25 @@ export const App: React.VFC = () => {
       );
       const res = await data.json();
       setCharacterData(res);
+      setAppLoaded(true);
+    })();
+  }, []);
 
+  useEffect(() => {
+    if (characterData.length)
       AFRAME.registerComponent("display-char", {
         init: function () {
           let el = this.el;
           function displayChar() {
-            const data = res?.find((char: Character) => char.name === el.id);
+            const data = characterData?.find(
+              (char: Character) => char.name === el.id
+            );
             setDisplayCharacter(data);
           }
           el.addEventListener("click", displayChar);
         },
       });
-      setAppLoaded(true);
-    })();
-  }, []);
-
-  function toggleFilter() {
-    if (filterMenu.current?.classList.contains("hide")) {
-      filterMenu.current?.classList.remove("hide");
-    } else {
-      filterMenu.current?.classList.add("hide");
-    }
-  }
-
-  function toggleSelected(e: { currentTarget: HTMLElement }) {
-    const char = e.currentTarget.innerText as string;
-    if (e.currentTarget.classList.contains("selected")) {
-      e.currentTarget.classList.remove("selected");
-      setFilteredCharacters((prevState) => ({ ...prevState, [char]: false }));
-    } else {
-      e.currentTarget.classList.add("selected");
-      setFilteredCharacters((prevState) => ({ ...prevState, [char]: true }));
-    }
-  }
+  }, [characterData]);
 
   return (
     <div className="app">
@@ -75,16 +75,26 @@ export const App: React.VFC = () => {
       {appLoaded && (
         <>
           <div>
-            <p className="filter-label" onClick={() => toggleFilter()}>
+            <div
+              className="filter-menu-button"
+              onClick={(e) => toggleClass(filterMenu.current!, "hide")}
+            >
               Filter
-            </p>
-            <div ref={filterMenu} className="filter-container hide">
+            </div>
+            <div ref={filterMenu} className="filter-menu hide">
               {characterData?.map((char, idx) => (
                 <div
                   key={idx}
-                  className="filter"
+                  className="filter-item"
                   onClick={(e) => {
-                    toggleSelected(e);
+                    toggleClass(e.currentTarget, "selected");
+                    const char = e.currentTarget.innerText;
+                    const filter =
+                      e.currentTarget.classList.contains("selected");
+                    setFilteredCharacters((prevState) => ({
+                      ...prevState,
+                      [char]: filter,
+                    }));
                   }}
                 >
                   {char.name}
